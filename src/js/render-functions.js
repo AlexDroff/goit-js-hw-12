@@ -61,13 +61,11 @@ export function showLoader(context = 'form') {
 }
 
 export function hideLoader() {
-  setTimeout(() => {
-    if (loaderEl) loaderEl.style.display = 'none';
-    if (loaderTextEl) {
-      loaderTextEl.remove();
-      loaderTextEl = null;
-    }
-  }, 1000);
+  if (loaderEl) loaderEl.style.display = 'none';
+  if (loaderTextEl) {
+    loaderTextEl.remove();
+    loaderTextEl = null;
+  }
 }
 
 export function showLoadMoreButton() {
