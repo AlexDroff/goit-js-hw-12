@@ -4,7 +4,10 @@ import 'loaders.css/loaders.min.css';
 
 const galleryEl = document.querySelector('.gallery');
 const loaderEl = document.querySelector('.loader');
-const loaderTextEl = document.querySelector('.loader-text');
+let loaderTextEl = null;
+
+const formEl = document.querySelector('.form');
+const loadMoreBtn = document.querySelector('.load-more');
 
 const lightbox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
@@ -39,12 +42,42 @@ export function clearGallery() {
   galleryEl.innerHTML = '';
 }
 
-export function showLoader() {
+export function showLoader(context = 'form') {
   if (loaderEl) loaderEl.style.display = 'flex';
-  if (loaderTextEl) loaderTextEl.style.display = 'block';
+
+  if (loaderTextEl) loaderTextEl.remove();
+
+  loaderTextEl = document.createElement('p');
+  loaderTextEl.classList.add('loader-text');
+  loaderTextEl.textContent = 'Loading images, please wait...';
+
+  if (context === 'form') {
+    formEl.insertAdjacentElement('afterend', loaderTextEl);
+  } else if (context === 'loadMore') {
+    loadMoreBtn.insertAdjacentElement('afterend', loaderTextEl);
+  }
+
+  loaderTextEl.style.display = 'block';
 }
 
 export function hideLoader() {
-  if (loaderEl) loaderEl.style.display = 'none';
-  if (loaderTextEl) loaderTextEl.style.display = 'none';
+  setTimeout(() => {
+    if (loaderEl) loaderEl.style.display = 'none';
+    if (loaderTextEl) {
+      loaderTextEl.remove();
+      loaderTextEl = null;
+    }
+  }, 1000);
+}
+
+export function showLoadMoreButton() {
+  if (loadMoreBtn) loadMoreBtn.style.display = 'block';
+}
+
+export function hideLoadMoreButton() {
+  if (loadMoreBtn) loadMoreBtn.style.display = 'none';
+}
+
+export function getLoadMoreButton() {
+  return loadMoreBtn;
 }
