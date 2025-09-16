@@ -73,7 +73,7 @@ form.addEventListener('submit', async e => {
 loadMoreBtn.addEventListener('click', async () => {
   currentPage += 1;
   hideLoadMoreButton();
-  showLoader('loadMore'); // текст лоадера під кнопкою
+  showLoader('loadMore');
 
   try {
     const data = await getImagesByQuery(currentQuery, currentPage);
